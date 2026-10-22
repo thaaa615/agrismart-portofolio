@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AgriSmart · Pemupukan Cerdas MAN 2 Mataram</title>
+<meta name="theme-color" content="#0B6B47">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E🌱%3C/text%3E%3C/svg%3E">
+<meta name="description" content="Studi kasus AgriSmart: dashboard pemantauan lahan dengan sensor IoT ESP32 dan rekomendasi pemupukan memakai XGBoost.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="prog" aria-hidden="true"></div>
+<header><div class="wrap">
+  <a class="brand" href="#top" aria-label="AgriSmart">
+    <svg viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" rx="8" fill="var(--leaf)"/><path d="M14 22v-8m0 0c0-3 2-5 5-5 0 3-2 5-5 5Zm0 2c0-2.5-1.8-4.2-4.5-4.2 0 2.6 1.8 4.2 4.5 4.2Z" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Agri<em>Smart</em>
+  </a>
+  <nav>
+    <a href="#proyek">Proyek</a><a href="#tampilan">Tampilan</a><a href="#lapangan">Lapangan</a><a href="#alur">Alur</a>
+    <button id="theme" type="button" aria-label="Ganti tema">Tema</button>
+  </nav>
+</div></header>
+
+<div class="scrim" id="scrim"></div>
+<main id="top">
+<div class="wrap hero">
+  <div>
+    <h1>Sawah yang bisa bilang kapan butuh <span class="hl">pupuk</span>.</h1>
+    <p class="lead">AgriSmart membaca tujuh parameter tanah dari sensor ESP32, lalu menyarankan jenis dan dosis pupuk dengan model XGBoost. Dibuat untuk program Smart Agriculture MAN 2 Mataram.</p>
+    <div class="cta">
+      <a class="btn main" href="#tampilan">Lihat tampilan aplikasi</a>
+      <a class="btn alt" href="#proyek">Baca ceritanya</a>
+    </div>
+  </div>
+  <div>
+    <div class="probe" role="group" aria-labelledby="pt">
+      <div class="probe-head"><b id="pt">Coba bacaan tanah</b><span>Geser untuk mensimulasikan</span></div>
+      <div class="rows" id="rows"></div>
+      <div class="verdict" aria-live="polite"><strong id="vT"></strong><p id="vD"></p></div>
+    </div>
+    <p class="note">Nilai awal diambil dari lahan padi 2 ha di aplikasi. Rentang ideal sama dengan dashboard.</p>
+  </div>
+</div>
+
+<section id="proyek"><div class="wrap">
+  <span class="eyebrow">Latar belakang</span>
+  <div class="two">
+    <h2>Pupuk sering diberikan berdasarkan kebiasaan, bukan data.</h2>
+    <div class="prose">
+      <p>Kelebihan pupuk membuang uang dan merusak tanah. Kekurangan menurunkan hasil panen. Petani butuh angka yang jelas dari lahannya sendiri.</p>
+      <p><strong>AgriSmart</strong> mengukur kelembaban, pH, suhu, nitrogen, fosfor, kalium, dan electrical conductivity langsung di lahan. Data dibersihkan lewat preprocessing, lalu model <strong>XGBoost</strong> menentukan pupuk dan dosis per hektar.</p>
+    </div>
+  </div>
+  <div class="facts">
+    <div><b>7</b><span>parameter tanah terukur</span></div>
+    <div><b>ESP32</b><span>mikrokontroler dengan sensor 7-in-1</span></div>
+    <div><b>XGBoost</b><span>model rekomendasi pupuk</span></div>
+  </div>
+</div></section>
+
+<section id="tampilan"><div class="wrap">
+  <span class="eyebrow">Aplikasi</span>
+  <h2>Lima layar yang dipakai petani setiap hari.</h2>
+  <div class="show">
+    <aside class="side" id="side" aria-label="Daftar layar">
+      <button class="x" id="close" type="button" aria-label="Tutup menu">&times;</button>
+      <h3>Layar aplikasi</h3>
+      <div class="tabs" role="tablist" aria-label="Tampilan aplikasi" id="tabs"></div>
+      <p id="cap" aria-live="polite"></p>
+    </aside>
+    <div>
+      <button class="openmenu" id="open" type="button" aria-controls="side" aria-expanded="false">
+        <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <span id="curname">Dashboard</span><small>Ganti layar</small>
+      </button>
+      <div class="frame">
+        <div class="bar"><i></i><i></i><i></i><span id="url">agrismart/dashboard</span></div>
+        <div class="stage" id="stage"></div>
+      </div>
+      <p id="capm"></p>
+    </div>
+  </div>
+</div></section>
+
+
+<section id="lapangan"><div class="wrap">
+  <span class="eyebrow">Lapangan</span>
+  <h2>Diuji langsung di sawah, bukan hanya di layar.</h2>
+  <div class="photos">
+    <figure class="ph a"><div class="img"><img id="p0" alt="Dua orang memeriksa dashboard AgriSmart di laptop dekat sensor dan kotak perangkat di tepi sawah" loading="lazy" decoding="async"></div>
+      <figcaption>Tim membaca dashboard di laptop sambil sensor 7-in-1 terpasang di lahan padi.</figcaption></figure>
+    <figure class="ph b"><div class="img"><img id="p1" alt="Kotak perangkat dengan sensor dan laptop menampilkan halaman rekomendasi AgriSmart di depan sawah" loading="lazy" decoding="async"></div>
+      <figcaption>Kotak perangkat dan sensor mengirim data, hasilnya langsung tampil di aplikasi.</figcaption></figure>
+  </div>
+</div></section>
+
+<section id="alur"><div class="wrap">
+  <span class="eyebrow">Cara kerja</span>
+  <h2>Dari tanah ke saran pupuk.</h2>
+  <div class="flow">
+    <div><em>01</em><b>Ukur</b><p>Sensor 7-in-1 membaca kondisi tanah di lahan.</p></div>
+    <div><em>02</em><b>Kirim</b><p>ESP32 mengirim data ke dashboard.</p></div>
+    <div><em>03</em><b>Analisis</b><p>Preprocessing, lalu XGBoost menentukan pupuk dan dosis.</p></div>
+    <div><em>04</em><b>Putuskan</b><p>Petani membaca rekomendasi dan riwayatnya.</p></div>
+  </div>
+</div></section>
+
+
+</main>
+<footer><div class="wrap">AgriSmart · Pemupukan Cerdas · MAN 2 Mataram</div></footer>
+
+<script src="js/main.js" defer></script>
+</body>
+</html>
